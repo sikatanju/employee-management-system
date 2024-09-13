@@ -1,0 +1,23 @@
+{% extends 'employee_base.html' %}
+
+{% block content %}
+
+
+<h2>Home Page</h2>
+<div>
+    <!-- {% if user == 'AnonymousUser' %}
+    <h1>Hello!</h1>
+    {% endif %} -->
+    <!-- <p>{{user}}</p> -->
+
+    <ul style="list-style-type: none;">
+        {% for employee in employees %}
+        <li>
+            {{employee.id}}. {{ employee.name }} -- {{ employee.phone }} -- {{ employee.designation }} --
+            {{employee.salary}}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
