@@ -1,0 +1,31 @@
+{% extends 'employee_base.html' %}
+
+{% block content %}
+
+
+<h2>Update Page</h2>
+<nav style="padding: 10px;">
+    <div>
+        <a style="margin: .5rem;" href="/employee/">Back to home page</a>
+    </div>
+</nav>
+<div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Designation</th>
+            <th>Salary</th>
+        </tr>
+        {% for employee in employees %}
+        <tr>
+            <td>{{employee.name}}</td>
+            <td>{{employee.phone}}</td>
+            <td>{{employee.designation}}</td>
+            <td><a href="{% url 'update-employee' employee.id %}">Update</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

@@ -4,20 +4,48 @@
 
 
 <h2>Home Page</h2>
+<nav style="padding: 10px;">
+    <div>
+        <a style="margin-right: .5rem; margin-left: 0; padding-left: 0;" href="add/">Add an employee</a>
+        <a style="margin: .5rem;" href="update/">Update Employee Page</a>
+        <a style="margin: .5rem;" href="delete/">Delete Employee Page</a>
+    </div>
+</nav>
 <div>
-    <!-- {% if user == 'AnonymousUser' %}
-    <h1>Hello!</h1>
-    {% endif %} -->
-    <!-- <p>{{user}}</p> -->
-
-    <ul style="list-style-type: none;">
+    <!-- <ul style="list-style-type: none;">
         {% for employee in employees %}
         <li>
             {{employee.id}}. {{ employee.name }} -- {{ employee.phone }} -- {{ employee.designation }} --
             {{employee.salary}}
         </li>
         {% endfor %}
-    </ul>
+    </ul> -->
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Designation</th>
+            <th>Salary</th>
+        </tr>
+        {% for employee in employees %}
+        <tr>
+            <td>{{employee.name}}</td>
+            <td>{{employee.address}}</td>
+            <td>{{employee.phone}}</td>
+            <td>{{employee.designation}}</td>
+            <td>{{employee.salary}}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
 
+
+<div>
+    <a href="{% url 'authorize-admin' %}">Login</a>
+</div>
+<div>
+    <a href="{% url 'unauthorize-admin' %}">Logout</a>
+</div>
 {% endblock %}

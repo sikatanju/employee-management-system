@@ -1,12 +1,14 @@
 {% extends 'employee_base.html' %}
 
 {% block content %}
-<h2>Add an Employee</h2>
+<h4><a href="{% url 'home' %}">Back to Home page</a></h4>
+
+<h2 style="margin-top: 0;">Add an Employee</h2>
 
 <form method="post">
     {% csrf_token %}
 
-    {{ employee_form.as_p }}
+    {{ employee_form }}
 
     <button type="submit">Add</button>
 </form>

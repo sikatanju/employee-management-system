@@ -7,6 +7,28 @@ class AddEmployeeForm(forms.ModelForm):
         model = Employee
         fields = '__all__'
 
+
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'placeholder': 'Name',
+            }),
+            'address': forms.TextInput(attrs={
+                'placeholder': 'Address',
+            }),
+            'phone': forms.TextInput(attrs={
+                'placeholder': "Start with '0',then 10 digits",
+            }),
+            'salary': forms.NumberInput(attrs={
+                'placeholder': 'Salary',
+            }),
+            'designation': forms.TextInput(attrs={
+                'placeholder': 'Designation',
+            }),
+            'description': forms.Textarea(attrs={
+                'placeholder': 'Short Description',
+            }),
+        }
+
     def clean_phone(self):
         phone = self.cleaned_data.get('phone')
 
@@ -23,11 +45,10 @@ class AddEmployeeForm(forms.ModelForm):
 
         return phone
     
-
 class UpdateEmployeeForm(forms.ModelForm):
     class Meta:
         model = Employee
-        fields = ['name', 'address', 'phone', 'description'] 
+        fields = ['name', 'address', 'phone', 'description']
 
     def clean_phone(self):
         phone = self.cleaned_data.get('phone')
