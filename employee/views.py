@@ -11,9 +11,12 @@ from .forms import AddEmployeeForm, UpdateEmployeeForm
 
 def home(request):
     request.session['last_page'] = 'home'
-    print(request.session['last_page'])
+    user = str(request.user)
     employee_list = Employee.objects.all()
-    return render(request, 'home.html', {'employees': employee_list})
+    if user == 'AnonymousUser':
+        return render(request, 'home.html', {'employees': employee_list, 'user': None})
+    
+    return render(request, 'home.html', {'employees': employee_list, 'user': user})
    
 def authorize_admin(request):
     user = str(request.user)
@@ -48,8 +51,13 @@ def authorize_admin(request):
     
 
 def unauthorize_admin(request):
+    user = str(request.user)
+    print(user)
+    if user == 'AnonymousUser':
+        return render(request, 'logout.html', {'user': None})
+
     logout(request)
-    return redirect(home)
+    return render(request, 'logout.html', {'user': user})
 
 def add_employee(request):
     user = str(request.user)
@@ -74,17 +82,6 @@ def update_employee_list(request):
     if user != 'admin':
         request.session['last_page'] = 'update'
         return redirect(authorize_admin)
-        # login_form = AuthenticationForm()
-
-        # if request.method == 'POST':
-        #     login_form = AuthenticationForm(data=request.POST)
-        #     if login_form.is_valid():
-        #         user = login_form.get_user()
-        #         print(user)
-        #         login(request, user)
-        #         return redirect(update_employee_list)
-            
-        # return render(request, 'login.html', {'login_form': login_form})
 
     employee_list = Employee.objects.all()
     return render(request, 'update_employee.html',  {'employees': employee_list})
@@ -103,15 +100,41 @@ def update_an_employee(request,pk):
 
         if request.method == 'POST':
             updated_employee = UpdateEmployeeForm(request.POST, instance=employee)
+            if 'salary' in updated_employee.changed_data or 'designation' in updated_employee.changed_data:
+                return render(request, 'employee_form.html', {'employee_form': updated_employee, 'form': 'update', 'error': 1})
             
             if updated_employee.is_valid():
                 updated_employee.save()
                 return redirect(home)
             else:
-                return render(request, 'employee_form.html', {'employee_form': updated_employee})
+                return render(request, 'employee_form.html', {'employee_form': updated_employee, 'form': 'update'})
         
-        return render(request, 'employee_form.html', {'employee_form': update_employee_form})
+        return render(request, 'employee_form.html', {'employee_form': update_employee_form , 'form': 'update'})
 
     except Employee.DoesNotExist:
         return HttpResponse('No employee exists by the given id')
-        
+
+
+def delete_employee_list(request):
+    user = str(request.user)
+    if user != 'admin':
+        request.session['last_page'] = 'delete'
+        return redirect(authorize_admin)
+
+    employee_list = Employee.objects.all()
+    return render(request, 'delete_employee.html',  {'employees': employee_list})
+
+
+def delete_an_employee(request, pk):
+    user = str(request.user)
+    if user != 'admin':
+        return render(request, 'not_admin.html', {'user': user})
+    
+    try:
+        # print(pk)
+        employee = Employee.objects.get(pk=pk)
+        employee.delete()
+        return redirect(home)
+
+    except Employee.DoesNotExist:
+        return HttpResponse('No employee exists by the given id')

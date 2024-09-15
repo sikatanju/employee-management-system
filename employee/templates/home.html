@@ -4,30 +4,32 @@
 
 
 <h2>Home Page</h2>
-<nav style="padding: 10px;">
-    <div>
+<nav style="margin-bottom: 10px;">
+    <div style="margin: 0;">
         <a style="margin-right: .5rem; margin-left: 0; padding-left: 0;" href="add/">Add an employee</a>
         <a style="margin: .5rem;" href="update/">Update Employee Page</a>
         <a style="margin: .5rem;" href="delete/">Delete Employee Page</a>
     </div>
 </nav>
+<nav>
+    <div style="margin:0">
+        {% if not user %}
+        <a href="{% url 'authorize-admin' %}">Login</a>
+        {% else %}
+        <a href="{% url 'unauthorize-admin' %}">Logout</a>
+        {% endif %}
+    </div>
+</nav>
 <div>
-    <!-- <ul style="list-style-type: none;">
-        {% for employee in employees %}
-        <li>
-            {{employee.id}}. {{ employee.name }} -- {{ employee.phone }} -- {{ employee.designation }} --
-            {{employee.salary}}
-        </li>
-        {% endfor %}
-    </ul> -->
-
-    <table>
+    {% if employees %}
+    <table style="width: 900px;">
         <tr>
-            <th>Name</th>
-            <th>Address</th>
+            <th style="width: 150px;">Name</th>
+            <th style="width: 350px;">Address</th>
             <th>Phone</th>
             <th>Designation</th>
             <th>Salary</th>
+            <th style="width: 400px;">Description</th>
         </tr>
         {% for employee in employees %}
         <tr>
@@ -36,16 +38,13 @@
             <td>{{employee.phone}}</td>
             <td>{{employee.designation}}</td>
             <td>{{employee.salary}}</td>
+            <td>{{employee.description}}</td>
         </tr>
         {% endfor %}
     </table>
-</div>
-
-
-<div>
-    <a href="{% url 'authorize-admin' %}">Login</a>
-</div>
-<div>
-    <a href="{% url 'unauthorize-admin' %}">Logout</a>
+    {% else %}
+    <h3>Currently no employees available.</h3>
+    <h3>Add employees to see their data.</h3>
+    {% endif %}
 </div>
 {% endblock %}
