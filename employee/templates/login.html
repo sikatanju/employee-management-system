@@ -3,6 +3,7 @@
 {% block content %}
 
 <h3>Login</h3>
+
 <form method="post">
     {% csrf_token %}
 
@@ -10,6 +11,13 @@
 
     <button type="submit">Login</button>
 </form>
+<div>
+    <h5>Login to access to page to add, update & delete an employee.</h5>
+</div>
 
-<h5>Login to access to page to add, update & delete an employee.</h5>
+<div>
+    <h5 style="margin-bottom: 0;">Use these credentials :</h5>
+    <p>'username': admin</p>
+    <p>'password': 123</p>
+</div>
 {% endblock %}

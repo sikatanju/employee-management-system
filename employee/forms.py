@@ -54,7 +54,7 @@ class AddEmployeeForm(forms.ModelForm):
 class UpdateEmployeeForm(forms.ModelForm):
     class Meta:
         model = Employee
-        fields = ['name', 'address', 'phone', 'description', 'salary']
+        fields = ['name', 'address', 'phone', 'description']
 
         widgets = {
             'name': forms.TextInput(attrs={
@@ -72,10 +72,6 @@ class UpdateEmployeeForm(forms.ModelForm):
             'description': forms.Textarea(attrs={
                 'placeholder': 'Short Description',
                 'style': 'width: 400px; height: 150px;'
-            }),
-            'salary': forms.NumberInput(attrs={
-                'placeholder': 'Salary',
-                'style': 'width: 400px'
             }),
         }
 
