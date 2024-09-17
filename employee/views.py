@@ -116,7 +116,7 @@ def update_an_employee(request,pk):
         return render(request, 'employee_form.html', {'employee_form': update_employee_form , 'form': 'update'})
 
     except Employee.DoesNotExist:
-        return HttpResponse('No employee exists by the given id')
+        return render(request, 'not_found.html')
 
 
 def delete_employee_list(request):
@@ -141,4 +141,4 @@ def delete_an_employee(request, pk):
         return redirect(home)
 
     except Employee.DoesNotExist:
-        return HttpResponse('No employee exists by the given id')
+        return render(request, 'not_found.html')
