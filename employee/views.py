@@ -38,6 +38,8 @@ def authorize_admin(request):
                     return redirect(add_employee)
                 elif last_page == 'update':
                     return redirect(update_employee_list)
+                elif last_page == 'delete':
+                    return redirect(delete_employee_list)
             
         return render(request, 'login.html', {'login_form': login_form})
     
@@ -48,6 +50,8 @@ def authorize_admin(request):
         return redirect(add_employee)
     elif last_page == 'update':
         return redirect(update_employee_list)
+    elif last_page == 'delete':
+        return redirect(delete_employee_list)
     
 
 def unauthorize_admin(request):
