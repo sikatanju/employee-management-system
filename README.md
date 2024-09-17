@@ -5,7 +5,7 @@ A web application designed to streamline employee management, including roles, s
 ### This app requires admin login before adding, updating or deleting an employee.
 
 ### Admin Login info : 
-    *** username: login
+    *** username: admin
     *** password: 123
 
 
